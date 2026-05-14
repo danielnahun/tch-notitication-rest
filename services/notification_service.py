@@ -6,7 +6,8 @@ from .channels_service import(
     SMSChannel,
     PushChannel
 )
-from schemas.notifications import NotificationChannel
+from schemas.notifications import NotificationChannel, NotificationCreate
+
 
 class NotificationRepository:
 
@@ -24,3 +25,12 @@ class NotificationRepository:
 
     def get_channel(self, channel: NotificationChannel):
         return self._channels.get(channel)
+
+    def create_notification(self, noti_data: NotificationCreate, creator_id: int):
+        db = self.db
+
+        db.add(noti_data)
+        db.commit()
+        db.refresh(noti_data)
+
+        return noti_data
