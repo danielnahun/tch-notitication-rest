@@ -18,7 +18,7 @@ class UserService:
     def __init__(self, db:Session):
         self.db = db
 
-    def create_user(self, user_data: UserCreate, creator_id:int):
+    def create_user(self, user_data: UserCreate, id_user_create:int):
         db = self.db
 
         existing_user = self.get_by_user_name(user_data.user_name)
@@ -34,10 +34,9 @@ class UserService:
             user_password = hashed_password,
             token = token,
             user_name = user_data.user_name,
-            created_by = user_data.id_user_create,
+            created_by = id_user_create,
             created_at = current_time
         )
-
         # try:
         db.add(user_dict)
         db.commit()

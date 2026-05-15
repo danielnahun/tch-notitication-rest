@@ -6,6 +6,8 @@ class Notificaciones(Base):
     id_notification = Column(Integer, primary_key=True, autoincrement=True)
     sender_id = Column(Integer)
     receiver_id = Column(Integer)
+    sender_contact = Column(String(255))
+    receiver_contact = Column(String(255))
     subject = Column(String(255), nullable=False)
     message = Column(Text)
     channel = Column(

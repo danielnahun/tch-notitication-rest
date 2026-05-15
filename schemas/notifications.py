@@ -1,6 +1,7 @@
 from enum import Enum
 from datetime import datetime
 from pydantic import BaseModel, ConfigDict
+from typing import Optional
 
 class NotificationChannel(str, Enum):
     EMAIL = 'email'
@@ -17,12 +18,22 @@ class NotificationBase(BaseModel):
     receiver_id: int
     subject: str
     message: str
-    channel: NotificationChannel
     status: NotificationStatus = NotificationStatus.PENDING
     model_config = ConfigDict(from_attributes=True, use_enum_values=True)
 
 class NotificationCreate(NotificationBase):
-    created_by: datetime
+    created_at: datetime
+    sender_contact: Optional[str] = None
+    receiver_contact: Optional[str] = None
+
+class NotificationCreateMail(NotificationCreate):
+    receiver_contact: str
+    sender_contact: str
+
+class NotificationCreateNumber(NotificationCreate):
+    receiver_contact: str
+    sender_contact: str
 
 class NotificationResponse(NotificationBase):
     id_notification: int
+    channel: NotificationChannel

@@ -7,7 +7,6 @@ class UserBase(BaseModel):
 
 class UserCreate(UserBase):
     user_password: str = Field(min_length=5)
-    id_user_create: int = Field(description="Relacion a Usuario creador")
     model_config = ConfigDict(from_attributes=True)
 
 class UserLogin(UserBase):

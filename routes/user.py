@@ -5,6 +5,8 @@ from sqlalchemy.orm import Session
 # USERS
 from schemas.user import (UserCreate, UserResponse, UserLogin)
 from services.user_services import UserService
+from .dependencies import get_current_user
+from models.user import User
 
 router = APIRouter(tags=["Users"])
 
@@ -16,14 +18,14 @@ def get_db():
         db.close()
 
 
-@router.post("/create_user")
-def create_user(user_data: UserCreate, db: Session = Depends(get_db)):
+@router.post("/create_user") # daniel@calcina.dev - Admin2026!
+def create_user(user_data: UserCreate, db: Session = Depends(get_db), current_user: Session = Depends(get_current_user)):
     try:
         user_service = UserService(db)
 
         user = user_service.create_user(
             user_data=user_data,
-            creator_id = 1#user_data['id_user_create']
+            id_user_create=current_user.id_user
         )
         return user
 
