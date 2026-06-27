@@ -12,3 +12,5 @@ class User(Base):
     created_at = Column(TIMESTAMP, nullable=False)
     deleted_by = Column(Integer)
     deleted_at = Column(TIMESTAMP, nullable=True)
+
+Base.metadata.create_all(bind=engine)
