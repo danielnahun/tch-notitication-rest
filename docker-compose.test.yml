@@ -12,10 +12,10 @@ services:
       MYSQL_PASSWORD: pass159pow
       TZ: America/Lima
     ports:
-      "3307:3306"
+      - "3307:3306"
     volumes:
-      -mysql_test_data:/var/lib/mysql
-      -./docker/init:/docker-entrypoint-initdb.d
+      - mysql_test_data:/var/lib/mysql
+      - ./docker/init:/docker-entrypoint-initdb.d
   
 volumes:
   mysql_test_data:
