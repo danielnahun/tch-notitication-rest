@@ -1,0 +1,21 @@
+version: '3.9'
+
+services:
+  
+  db_test:
+    image: mysql:8.0
+    container_name: db_test
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpass159
+      MYSQL_DATABASE: not_system
+      MYSQL_USER: dani
+      MYSQL_PASSWORD: pass159pow
+      TZ: America/Lima
+    ports:
+      "3307:3306"
+    volumes:
+      -mysql_test_data:/var/lib/mysql
+      -./docker/init:/docker-entrypoint-initdb.d
+  
+volumes:
+  mysql_test_data:
