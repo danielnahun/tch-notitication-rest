@@ -1,5 +1,5 @@
 from sqlalchemy import Column, Integer, String, Text, Boolean, TIMESTAMP,Enum
-from config.bd import Base
+from config.bd import Base, engine
 
 class Notificaciones(Base):
     __tablename__ = 'notifications'
