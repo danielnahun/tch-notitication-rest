@@ -28,7 +28,7 @@ class UserService:
 
         hashed_password = generate_password_hash(user_data.user_password)
         token = secrets.token_urlsafe(48)
-        current_time = datetime.utcnow()
+        current_time = datetime.now()
 
         user_dict =  User(
             user_password = hashed_password,
@@ -72,9 +72,9 @@ class UserService:
         token_data = {
             "sub": str(existing_user.id_user), 
             "username":existing_user.user_name,
-            "iat": datetime.utcnow(),
+            "iat": datetime.now(),
             "type": "access",
-            "exp": datetime.utcnow()+timedelta(hours=1)
+            "exp": datetime.now()+timedelta(hours=1)
             }
 
         access_token = jwt.encode(token_data, SECRET_KEY, algorithm=ALGORITHM)
@@ -98,7 +98,7 @@ class UserService:
 
         hashed_password = generate_password_hash(user_data.user_password)
         token = secrets.token_urlsafe(48)
-        current_time = datetime.utcnow()
+        current_time = datetime.now()
 
         user.user_password = hashed_password,
         user.token = token

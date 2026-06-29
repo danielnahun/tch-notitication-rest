@@ -6,8 +6,8 @@ CREATE TABLE user(
     is_active BOOLEAN NOT NULL DEFAULT TRUE,
     created_by INT,
     created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    deteled_by INT,
-    deteled_at TIMESTAMP
+    deleted_by INT,
+    deleted_at TIMESTAMP
 );
 
 CREATE TABLE notifications(
@@ -22,6 +22,6 @@ CREATE TABLE notifications(
     status ENUM('pending','sent','failed'),
     created_by INT,
     created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    deteled_by INT,
-    deteled_at TIMESTAMP
+    deleted_by INT,
+    deleted_at TIMESTAMP
 )

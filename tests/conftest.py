@@ -4,6 +4,7 @@ from pathlib import Path
 from sqlalchemy.orm import sessionmaker
 from fastapi.testclient import TestClient
 
+# Salvaguarda para no tocar BD real
 os.environ["APP_ENV"] = ".env.test"
 
 from config.bd import Base, get_db, engine
