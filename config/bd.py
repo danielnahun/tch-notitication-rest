@@ -4,7 +4,11 @@ from dotenv import load_dotenv
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker, declarative_base
 
-load_dotenv()
+env_file = os.getenv("APP_ENV") or ".env"
+if env_file != ".env":
+    load_dotenv(env_file, override=True)
+else:
+    load_dotenv()
 
 _DB_HOST=os.getenv('DB_HOST')
 _DB_USER=os.getenv('DB_USER')
