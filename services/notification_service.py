@@ -68,7 +68,7 @@ class NotificationRepository:
                 status = "sent",
                 created_by = creator_user.id_user,
                 channel = channel.channel_name,
-                created_at = datetime.now()
+                created_at = datetime.now(timezone.utc)
             )
 
             db.add(noti_dict)

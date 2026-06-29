@@ -60,7 +60,7 @@ def mock_user():
         token="token_admin",
         is_active=True,
         created_by=1,
-        created_at=datetime.now()
+        created_at=datetime.now(timezone.utc)
     )
 
 @pytest.fixture
