@@ -88,6 +88,34 @@ class UserService:
             }
         }
 
+    def reset_password(self,  user_data: UserCreate,):
+        db = self.db
+
+        user = self.get_by_user_name(user_data.user_name)
+        if not user:
+            print(f"Usuario invalido")
+            raise
+
+        hashed_password = generate_password_hash(user_data.user_password)
+        token = secrets.token_urlsafe(48)
+        current_time = datetime.utcnow()
+
+        user.user_password = hashed_password,
+        user.token = token
+        # try:
+        db.commit()
+        db.refresh(user_dict)
+        # except Exception as e:
+        #     raise e
+
+        return user_dict
+
+
+
+        
+
+
+
 
 
 
