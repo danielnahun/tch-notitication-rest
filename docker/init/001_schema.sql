@@ -1,5 +1,5 @@
 CREATE TABLE user(
-    id_user INT NOT NULL AUTO_INCREMENT PRIMERY KEY,
+    id_user INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
     user_name VARCHAR(255) NOT NULL,
     user_password VARCHAR(255) NOT NULL,
     token TEXT,
@@ -11,7 +11,7 @@ CREATE TABLE user(
 );
 
 CREATE TABLE notifications(
-    id_notification INT NOT NULL AUTO_INCREMENT PRIMERY KEY,
+    id_notification INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
     sender_id INT,
     receiver_id INT,
     sender_contact VARCHAR(255),
