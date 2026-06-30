@@ -7,13 +7,17 @@ from fastapi.testclient import TestClient
 # Salvaguarda para no tocar BD real
 os.environ["APP_ENV"] = ".env.test"
 
-from config.bd import Base, get_db, engine
+from config.bd import Base, get_db, engine as _engine
 from main import app
 from routes.dependencies import get_current_user
 from models.user import User
-from datetime import datetime
+from datetime import datetime, timezone
 
 SEEDS_FILE = Path(__file__).parent.parent / "docker" / "init" / "002_seeds.sql"
+
+@pytest.fixture(scope="session")
+def engine():
+    return _engine
 
 @pytest.fixture(scope="session")
 def setup_database(engine):
