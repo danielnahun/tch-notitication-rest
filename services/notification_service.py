@@ -9,7 +9,7 @@ from .channels_service import(
 from models.user import User
 from models.notifications import Notificaciones
 from schemas.notifications import NotificationChannel, NotificationCreate, NotificationCreateMail, NotificationCreateNumber
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, timezone
 from fastapi import HTTPException, status
 
 

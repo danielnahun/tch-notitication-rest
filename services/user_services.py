@@ -5,7 +5,7 @@ from schemas.user import UserCreate, UserLogin
 from models.user import User
 import secrets
 from sqlalchemy.orm import Session
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, timezone
 from jose import JWTError, jwt
 from dotenv import load_dotenv
 
@@ -26,7 +26,7 @@ class UserService:
             print(f"Usuario con username={user_data.user_name} ya existe")
             raise
 
-        hashed_password = generate_password_hash(user_data.user_password)
+        hashed_password = generate_password_hash(user_data.user_password, method='pbkdf2:sha256', salt_length=16)
         token = secrets.token_urlsafe(48)
         current_time = datetime.now(timezone.utc)
 
@@ -35,7 +35,8 @@ class UserService:
             token = token,
             user_name = user_data.user_name,
             created_by = id_user_create,
-            created_at = current_time
+            created_at = current_time,
+            is_active = True
         )
         # try:
         db.add(user_dict)
@@ -96,7 +97,7 @@ class UserService:
             print(f"Usuario invalido")
             raise
 
-        hashed_password = generate_password_hash(user_data.user_password)
+        hashed_password = generate_password_hash(user_data.user_password, method='pbkdf2:sha256', salt_length=16)
         token = secrets.token_urlsafe(48)
         current_time = datetime.now(timezone.utc)
 
