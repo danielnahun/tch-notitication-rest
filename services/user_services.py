@@ -105,11 +105,11 @@ class UserService:
         user.token = token
         # try:
         db.commit()
-        db.refresh(user_dict)
+        db.refresh(user)
         # except Exception as e:
         #     raise e
 
-        return user_dict
+        return user
 
 
 

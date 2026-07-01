@@ -1,25 +1,31 @@
 import pytest
-from schemas.user import UserCreate
-from services.user_services import UserService
 from sqlalchemy import text
-from models.user import User
 import re
 from werkzeug.security import check_password_hash
 from datetime import datetime, timezone, timedelta
+
+from schemas.user import UserCreate
+from models.user import User
+from services.user_services import UserService
+
+mock_user = {
+    "user_name": "test@example.com",
+    "user_password": "SecurePass123"
+}
 
 @pytest.fixture
 def create_user(db_session):
     """Crea un usuario y retorna los valores de la creacion"""
     user_data = UserCreate(
-        user_name = "test@example.com",
-        user_password = "SecurePass123"
+        user_name = mock_user['user_name'],
+        user_password = mock_user['user_password']
     )
     service = UserService(db_session)
     service.create_user(user_data, id_user_create=1)
 
     result = db_session.execute(
         text("SELECT * FROM user WHERE user_name = :email"),
-        {"email": "test@example.com"}
+        {"email": mock_user['user_name']}
     ).mappings().first()
 
     return result
@@ -45,10 +51,10 @@ class TestUserCreation:
     def test_check_password_hashed(self, create_user):
         stored_password = create_user['user_password']
         assert stored_password.startswith("pbkdf2:sha256:")
-        assert check_password_hash(stored_password, "SecurePass123")
+        assert check_password_hash(stored_password, mock_user['user_password'])
 
     def test_formats_in_bd_validate(self, create_user):
-        assert create_user['user_name'] == "test@example.com"
+        assert create_user['user_name'] == mock_user['user_name']
         assert create_user['is_active'] in (True, 1, 1.0)
         assert create_user['created_by'] == 1
         assert create_user['token'] is not None
